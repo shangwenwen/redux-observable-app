@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const Navbar = () => (
+const TopicsFilterComponent = () => (
   <div>
     <ul className="nav navbar-nav">
       <li><NavLink to="/topics/all" activeClassName='active'>all</NavLink></li>
@@ -10,4 +10,4 @@ const Navbar = () => (
   </div>
 )
 
-export default Navbar
+export default TopicsFilterComponent
