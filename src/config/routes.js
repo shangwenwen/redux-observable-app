@@ -8,10 +8,7 @@ const history = createHistory()
 
 const Routes = () => (
   <ConnectedRouter history={history}>
-    <Switch>
-      <Route exact path='/' component={App} />
-      <Route path='/:filter' component={App} />
-    </Switch>
+    <App />
   </ConnectedRouter>
 )
 

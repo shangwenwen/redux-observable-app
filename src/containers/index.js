@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchTopics } from '../actions/topics'
 
-import Navbar from '../components/Navbar'
+import Header from '../components/Header'
 
 class App extends Component {
   componentDidMount() {
@@ -23,9 +23,14 @@ class App extends Component {
 
   render() {
     return(
-      <div>
-        <Navbar />
-        home
+      <div className='wraper'>
+        <Header />
+        <div className='main'>
+          <Switch>
+            <Route exact path='/' component={App} />
+            <Route path='/topics/:filter' component={App} />
+          </Switch>
+        </div>
       </div>
     )
   }
