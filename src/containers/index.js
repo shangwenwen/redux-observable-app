@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router'
 import { fetchTopics } from '../actions/topics'
 
 import Header from '../components/Header'
