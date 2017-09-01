@@ -8,8 +8,8 @@ export const fetchTopics = (action$) =>
   action$.ofType(actions.FETCH_TOPICS)
   .map((action) => {
     return {
-      filter: action.filter,
-      page: action.page
+      filter: action.payload.tab,
+      page: action.payload.page
     }
   })
   .switchMap(({filter, page}) =>
@@ -17,10 +17,11 @@ export const fetchTopics = (action$) =>
     .map((res) => {
       return {
         filter,
-        topics: res.response.data
+        page,
+        payload: res.response.data
       }
     })
-    .map(({filter, topics}) => actions.loadTopics(filter, topics))
+    .map(({filter, page, payload}) => actions.loadTopics(filter, page, payload))
     .catch(e => console.log(e))
   );
 

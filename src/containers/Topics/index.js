@@ -5,25 +5,37 @@ import TopicsFilterComponent from '../../components/TopicsFilter'
 
 class TopicsContainer extends Component {
   componentDidMount() {
-    this._loadTopics()
+    const { filter } = this.props
+    if() {
+      this._loadTopics(filter, 1)
+    }
+
   }
 
   componentDidUpdate(prevProps){
-    if(this.props.filter !== prevProps.filter) {
-      this._loadTopics()
+    const { filter } = this.props
+    if(filter !== prevProps.filter) {
+      this._loadTopics(filter, 1)
     }
   }
 
-  _loadTopics() {
-    const { filter, fetchTopics } = this.props
-    fetchTopics(filter,1)
+  _loadTopics(filter, page) {
+    this.props.fetchTopics({
+      tab: filter,
+      page: page
+    })
+  }
+
+  handleLoadMore(){
+    const { filter } = this.props
+    this._loadTopics(filter, 2)
   }
 
   render(){
     return(
       <div>
         <TopicsFilterComponent />
-        <div>list</div>
+        <div onClick={this.handleLoadMore.bind(this)}>list</div>
       </div>
     )
   }
