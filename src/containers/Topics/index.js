@@ -1,32 +1,37 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchTopics } from '../../actions/topics';
-import TopicsFilterComponent from '../../components/TopicsFilter'
-
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { fetchTopics } from '../../actions/topics'
 import { getIsFetching, getData, getPage } from '../../reducers'
+
+import TopicsFilterComponent from '../../components/TopicsFilter'
+import TopicsLoadMoreComponent from '../../components/TopicsLoadMore'
+import TopicsListComponent from '../../components/TopicsList'
 
 class TopicsContainer extends Component {
   componentDidMount() {
     const { filter, data } = this.props
-    if(data.length === 0) {
+    if(!data.length) {
       this._loadTopics(filter, 1)
     }
   }
 
   componentDidUpdate(prevProps){
     const { filter, data } = this.props
-    if(filter !== prevProps.filter && data.length === 0 ) {
+    if(filter !== prevProps.filter && !data.length ) {
       this._loadTopics(filter, 1)
     }
   }
 
   _loadTopics(filter, page) {
-    this.props.fetchTopics(filter, page)
+    this.props.fetchTopics(filter, page, 10)
   }
 
   handleLoadMore(){
-    const { filter, page } = this.props
-    this._loadTopics(filter, page + 1)
+    const { filter, page, isFetching } = this.props
+    if(!isFetching) {
+      this._loadTopics(filter, page + 1)
+    }
   }
 
   render(){
@@ -36,15 +41,25 @@ class TopicsContainer extends Component {
         <div>loading....</div>
       )
     }
+
     return(
       <div>
         <TopicsFilterComponent />
-        <div onClick={this.handleLoadMore.bind(this)}>list</div>
+        <TopicsListComponent data={data} />
+        <TopicsLoadMoreComponent
+          isFetching={isFetching}
+          onLoadMore={this.handleLoadMore.bind(this)}
+        />
       </div>
     )
   }
 }
 
+TopicsContainer.propTypes = {
+  fetchTopics: PropTypes.func.isRequired
+}
+
+// redux
 const mapStateToProps = (state, {match}) => {
   const filter = match.params.filter || 'all'
   return {
@@ -58,4 +73,4 @@ const mapStateToProps = (state, {match}) => {
 export default connect(
   mapStateToProps,
   { fetchTopics }
-)(TopicsContainer);
+)(TopicsContainer)

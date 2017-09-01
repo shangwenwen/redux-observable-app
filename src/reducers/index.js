@@ -11,11 +11,6 @@ export default combineReducers({
 })
 
 // Selectors
-export const getIsFetching = (state, filter) => {
-  // console.log(filter)
-  console.log(state.topics[filter])
-  // console.log(state.topics.filter)
-  return fromList.getIsFetching(state.topics[filter])
-}
+export const getIsFetching = (state, filter) => fromList.getIsFetching(state.topics[filter])
 export const getData = (state, filter) => fromList.getData(state.topics[filter])
 export const getPage = (state, filter) => fromList.getPage(state.topics[filter])

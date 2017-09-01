@@ -1,29 +1,36 @@
-import { ajax } from 'rxjs/observable/dom/ajax';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/catch';
-import * as actions from '../actions/topics';
+import { ajax } from 'rxjs/observable/dom/ajax'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/operator/catch'
+import * as actions from '../actions/topics'
 
 export const fetchTopics = (action$) =>
   action$.ofType(actions.FETCH_TOPICS)
-  .map((action) => {
-    return {
-      filter: action.filter,
-      page: action.page
-    }
-  })
-  .switchMap(({filter, page}) =>
-    ajax.get(`https://cnodejs.org/api/v1/topics?tab=${filter}&page=${page}&limit=5`)
-    .map((res) => {
-      return {
-        filter,
-        page,
-        payload: res.response.data
-      }
-    })
+  .map((action) => ({ filter: action.filter, page: action.page, limit: action.limit }))
+  .switchMap(({ filter, page, limit }) =>
+    ajax.get(`https://cnodejs.org/api/v1/topics?tab=${filter}&page=${page}&limit=${limit}`)
+    .map((res) => ({ filter, page, payload: res.response.data }))
     .map(({filter, page, payload}) => actions.loadTopics(filter, page, payload))
     .catch(e => console.log(e))
-  );
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // export const saveQuote = (action$) =>
@@ -39,7 +46,7 @@ export const fetchTopics = (action$) =>
 //     .map((quote) => {
 //       return actions.loadQuote(quote)
 //     })
-//   ));
+//   ))
 //
 // export const toggleFavorite = (action$) =>
 //   action$.ofType(actions.TOGGLE_FAVORITE)
@@ -56,7 +63,7 @@ export const fetchTopics = (action$) =>
 //       .map(() => actions.loadQuote({
 //         _id, text, favorited: !favorited
 //       }))
-//   });
+//   })
 //
 // export const deleteQuote = (action$) =>
 //   action$.ofType(actions.DELETE_QUOTE)
@@ -67,4 +74,4 @@ export const fetchTopics = (action$) =>
 //     ajax.delete(`/api/quotes/${quote._id}`)
 //     .map(res => res.response)
 //     .map(() => actions.deleteSuccess(quote._id))
-//   );
+//   )

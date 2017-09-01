@@ -54,8 +54,11 @@ function topicsCreate(filter) {
 
 const topics = combineReducers({
   all: topicsCreate('all'),
-  ask: topicsCreate('ask'),
   good: topicsCreate('good'),
+  share: topicsCreate('share'),
+  ask: topicsCreate('ask'),
+  job: topicsCreate('job'),
+  dev: topicsCreate('dev'),
 })
 
 export default topics
