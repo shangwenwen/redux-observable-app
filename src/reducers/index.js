@@ -1,13 +1,21 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-// import { createSelector } from 'reselect'
+// Selectors
+import * as fromList from './topics'
+
 import topics from './topics';
 
 export default combineReducers({
   topics,
   routing: routerReducer
-});
+})
 
-// // selectors
-// export const getQuotes = state => state.quotes;
-// export const getQuotesArray = createSelector(getQuotes, fromQuotes.getQuotesArray);
+// Selectors
+export const getIsFetching = (state, filter) => {
+  // console.log(filter)
+  console.log(state.topics[filter])
+  // console.log(state.topics.filter)
+  return fromList.getIsFetching(state.topics[filter])
+}
+export const getData = (state, filter) => fromList.getData(state.topics[filter])
+export const getPage = (state, filter) => fromList.getPage(state.topics[filter])

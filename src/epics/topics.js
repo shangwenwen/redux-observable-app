@@ -8,8 +8,8 @@ export const fetchTopics = (action$) =>
   action$.ofType(actions.FETCH_TOPICS)
   .map((action) => {
     return {
-      filter: action.payload.tab,
-      page: action.payload.page
+      filter: action.filter,
+      page: action.page
     }
   })
   .switchMap(({filter, page}) =>

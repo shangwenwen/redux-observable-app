@@ -1,41 +1,66 @@
 import { combineReducers } from 'redux'
 import * as actions from '../actions/topics'
-  // import { createSelector } from 'reselect'
 
-const initstate = {
-  page: 0,
-  data: []
-}
-
-function createFilterList(filter) {
-  return((state = initstate, action) => {
+function topicsCreate(filter) {
+  const data = (state = [], action) => {
     if(action.filter !== filter) {
       return state
     }
     switch(action.type) {
       case actions.LOAD_TOPICS:
         const topics = action.payload
-        const page = action.page
-        const data = topics.map(quote => [quote.id]: quote)
-        return {
-          page: page,
-          data: state.data.concat(data)
-        }
+        const data = topics.map((topic) => {
+          return topic
+        })
+        return state.concat(data)
       default:
         return state
     }
+  }
+
+  const page = (state = 0, action) => {
+    if(action.filter !== filter) {
+      return state
+    }
+    switch(action.type) {
+      case actions.LOAD_TOPICS:
+        const page = action.page
+        return page
+      default:
+        return state
+    }
+  }
+
+  const isFetching = (state = false, action) => {
+    if(action.filter !== filter) {
+      return state
+    }
+    switch(action.type) {
+      case actions.FETCH_TOPICS:
+        return true
+      case actions.LOAD_TOPICS:
+        return false
+      default:
+        return state
+    }
+  }
+
+  return combineReducers({
+    data,
+    page,
+    isFetching
   })
 }
 
 const topics = combineReducers({
-  all: createFilterList('all'),
-  ask: createFilterList('ask'),
-  good: createFilterList('good'),
+  all: topicsCreate('all'),
+  ask: topicsCreate('ask'),
+  good: topicsCreate('good'),
 })
 
 export default topics
 
 // Selectors
-// const getIds = (state) => state.ids
-// const getEntities = (state) => state.entities
-// export const getQuotesArray = createSelector([getIds, getEntities], (ids, entities) => ids.map(id => entities[id]))
+export const getData = (state) => state.data
+export const getPage = (state) => state.page
+export const getIsFetching = (state) => state.isFetching
