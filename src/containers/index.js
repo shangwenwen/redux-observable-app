@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router'
 
 import HeaderComponent from '../components/Header'
 import TopicsContainer from './Topics'
+import TopicContainer from './Topic'
 
 class App extends Component {
 
@@ -15,6 +16,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={TopicsContainer} />
             <Route path='/topics/:filter' component={TopicsContainer} />
+            <Route path='/topic/:id' component={TopicContainer} />
           </Switch>
         </div>
       </div>
