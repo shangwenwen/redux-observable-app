@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchTopics, selectedTab } from '../../actions/topics'
+// actions
+import { fetchTopics, selectedTab } from '../../core/topics'
+// selectors
 import { getIsFetching, getData, getPage } from '../../reducers'
 
+// 依赖组件
 import TopicsFilterComponent from '../../components/TopicsFilter'
 import TopicsLoadMoreComponent from '../../components/TopicsLoadMore'
 import TopicsListComponent from '../../components/TopicsList'
