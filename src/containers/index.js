@@ -9,9 +9,14 @@ import TopicContainer from './Topic'
 class App extends Component {
 
   render() {
+    const { user } = this.props
+    const accesstoken = user.accesstoken
+    const username = user.loginname
+    const hasLogin = !!accesstoken
+
     return(
       <div className='wraper'>
-        <HeaderComponent />
+        <HeaderComponent username={username} />
         <div className='main'>
           <Switch>
             <Route exact path='/' component={TopicsContainer} />
@@ -24,4 +29,13 @@ class App extends Component {
   }
 }
 
-export default App
+// redux
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(App)
