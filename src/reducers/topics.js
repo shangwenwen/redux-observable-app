@@ -52,6 +52,15 @@ function topicsCreate(filter) {
   })
 }
 
+const selectedTab = (state = 'all', action) => {
+  switch(action.type) {
+    case actions.SELECTED_TAB:
+      return action.filter
+    default:
+      return state
+  }
+}
+
 const topics = combineReducers({
   all: topicsCreate('all'),
   good: topicsCreate('good'),
@@ -59,6 +68,7 @@ const topics = combineReducers({
   ask: topicsCreate('ask'),
   job: topicsCreate('job'),
   dev: topicsCreate('dev'),
+  selectedTab
 })
 
 export default topics

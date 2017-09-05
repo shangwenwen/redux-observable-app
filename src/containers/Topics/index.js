@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchTopics } from '../../actions/topics'
+import { fetchTopics, selectedTab } from '../../actions/topics'
 import { getIsFetching, getData, getPage } from '../../reducers'
 
 import TopicsFilterComponent from '../../components/TopicsFilter'
@@ -10,14 +10,20 @@ import TopicsListComponent from '../../components/TopicsList'
 
 class TopicsContainer extends Component {
   componentDidMount() {
-    const { filter, data } = this.props
+    const { filter, data, selectedTab } = this.props
+    selectedTab(filter)
+
     if(!data.length) {
       this._loadTopics(filter, 1)
     }
   }
 
   componentDidUpdate(prevProps){
-    const { filter, data } = this.props
+    const { filter, data, selectedTab } = this.props
+    if(filter !== prevProps.filter) {
+      selectedTab(filter)
+    }
+
     if(filter !== prevProps.filter && !data.length ) {
       this._loadTopics(filter, 1)
     }
@@ -72,5 +78,5 @@ const mapStateToProps = (state, {match}) => {
 
 export default connect(
   mapStateToProps,
-  { fetchTopics }
+  { fetchTopics, selectedTab }
 )(TopicsContainer)

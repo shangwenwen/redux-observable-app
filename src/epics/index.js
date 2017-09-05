@@ -1,6 +1,7 @@
 import { combineEpics } from 'redux-observable';
-import { fetchTopics } from "./topics";
+import { fetchTopics, fetchTopic } from "./topics";
 
 export default combineEpics(
-  fetchTopics
+  fetchTopics,
+  fetchTopic
 );

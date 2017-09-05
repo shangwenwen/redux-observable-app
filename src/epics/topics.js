@@ -14,6 +14,16 @@ export const fetchTopics = (action$) =>
     .catch(e => console.log(e))
   )
 
+export const fetchTopic = (action$) =>
+  action$.ofType(actions.FETCH_TOPIC)
+  .map((action) => ({ id: action.id, accesstoken: action.accesstoken }))
+  .switchMap(({ id, accesstoken }) =>
+    ajax.get(`https://cnodejs.org/api/v1/topic/${id}?accesstoken=${accesstoken}`)
+    .map(res => res.response.data)
+    .map((data) => actions.loadTopic(data))
+    .catch(e => console.log(e))
+  )
+
 
 
 

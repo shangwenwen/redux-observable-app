@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-// import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router'
 
+// 依赖组件
 import HeaderComponent from '../components/Header'
 import TopicsContainer from './Topics'
 import TopicContainer from './Topic'
