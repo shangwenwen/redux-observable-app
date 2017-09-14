@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router'
 
 // 依赖组件

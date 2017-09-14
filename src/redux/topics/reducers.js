@@ -72,8 +72,3 @@ const topics = combineReducers({
 })
 
 export default topics
-
-// Selectors
-export const getData = (state) => state.data
-export const getPage = (state) => state.page
-export const getIsFetching = (state) => state.isFetching

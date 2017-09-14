@@ -9,8 +9,3 @@ export default combineReducers({
   topics,
   routing: routerReducer
 })
-
-// Selectors
-export const getIsFetching = (state, filter) => fromList.getIsFetching(state.topics[filter])
-export const getData = (state, filter) => fromList.getData(state.topics[filter])
-export const getPage = (state, filter) => fromList.getPage(state.topics[filter])

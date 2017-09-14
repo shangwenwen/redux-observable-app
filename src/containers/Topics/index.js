@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 // actions
-import { fetchTopics, selectedTab } from '../../core/topics'
-// selectors
-import { getIsFetching, getData, getPage } from '../../reducers'
+import { fetchTopics, selectedTab } from '../../redux/topics'
 
 // 依赖组件
 import TopicsFilterComponent from '../../components/TopicsFilter'
